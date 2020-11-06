@@ -60,8 +60,7 @@ class _TobuyListState extends State<TobuyList> {
 
   Widget _listWidget(TobuyLoadedState state, BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
-
-    tobuyList = state.tobuyList;
+    List<TobuyListModel> tobuyList = state.tobuyList;
     return ListView.builder(
       itemCount: state.tobuyList.length,
       itemBuilder: (context, index) {
@@ -78,22 +77,23 @@ class _TobuyListState extends State<TobuyList> {
                 child: ListTile(
                   leading: InkWell(
                     onTap: () {
-                      setState(() {
-                        if (state.tobuyList[index].isComplate == 1) {
-                          state.tobuyList[index].isComplate = 0;
-                        } else {
-                          state.tobuyList[index].isComplate = 1;
-                        }
-                      });
-
-                      BlocProvider.of<TobuyBloc>(context).add(TobuyUpdatedEvent(
-                          TobuyListModel(
-                              tobuyName: tobuyList[index].tobuyName,
-                              isComplate: state.tobuyList[index].isComplate)));
-                      BlocProvider.of<TobuyBloc>(context)
-                          .add(TobuyLoadedEvent());
-
-                      print(state.tobuyList[index].isComplate.toString());
+                      if (state.tobuyList[index].isComplate == 1) {
+                        state.tobuyList[index].isComplate = 0;
+                        BlocProvider.of<TobuyBloc>(context).add(
+                            TobuyUpdatedEvent(TobuyListModel.withID(
+                                tobuyList[index].tobuyID,
+                                tobuyList[index].tobuyName,
+                                tobuyList[index].isComplate,
+                                tobuyList[index].tobuyDate)));
+                      } else {
+                        state.tobuyList[index].isComplate = 1;
+                        BlocProvider.of<TobuyBloc>(context).add(
+                            TobuyUpdatedEvent(TobuyListModel.withID(
+                                tobuyList[index].tobuyID,
+                                tobuyList[index].tobuyName,
+                                tobuyList[index].isComplate,
+                                tobuyList[index].tobuyDate)));
+                      }
                     },
                     child: Container(
                       child: Padding(
@@ -113,7 +113,7 @@ class _TobuyListState extends State<TobuyList> {
                     ),
                   ),
                   title: Text(
-                    tobuyList[index].tobuyName,
+                    state.tobuyList[index].tobuyName,
                     style: TextStyle(
                         fontSize: _screenHeight / 43,
                         fontFamily: 'RobotoMono',

@@ -17,6 +17,8 @@ class _TobuyAddScreenState extends State<TobuyAddScreen> {
 
   TextEditingController _textFormController = TextEditingController();
 
+  String formattedDate = DateFormat('dd-MM-yyyy-kk:mm').format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -44,11 +46,13 @@ class _TobuyAddScreenState extends State<TobuyAddScreen> {
                 background: null,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
+                    print(DateTime.now().toString());
                     _formKey.currentState.save();
                     final newList = TobuyListModel(
                         tobuyName:
                             toBeginningOfSentenceCase(_textFormController.text),
-                        isComplate: 0);
+                        isComplate: 0,
+                        tobuyDate: formattedDate);
 
                     BlocProvider.of<TobuyBloc>(context).add(
                       TobuyAddedEvent(newList),
@@ -56,7 +60,6 @@ class _TobuyAddScreenState extends State<TobuyAddScreen> {
                     if (newList.tobuyID != 0) {
                       _formKey.currentState.reset();
                     }
-                    BlocProvider.of<TobuyBloc>(context).add(TobuyLoadedEvent());
                   } else
                     print('validate olmadı');
                 },

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_habifa_v2/model/tobuy_models.dart';
 import 'package:sqflite/sqflite.dart';
@@ -66,7 +65,6 @@ class DBHelper {
   Future<List<TobuyListModel>> bringTobuyMapList() async {
     var bringTobuyMap = await bringTobuyList();
     var tobuyList = List<TobuyListModel>();
-    debugPrint(bringTobuyMap.toString());
     for (Map map in bringTobuyMap) {
       tobuyList.add(TobuyListModel.fromMap(map));
     }

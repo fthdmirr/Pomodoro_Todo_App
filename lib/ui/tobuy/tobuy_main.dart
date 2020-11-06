@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_habifa_v2/ui/tobuy/widgets/history/history_main.dart';
 
 
 import 'package:flutter_habifa_v2/ui/tobuy/widgets/tobuy_list.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_habifa_v2/ui/tobuy/widgets/tobuy_list.dart';
 class ToBuyMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var screenHeight = MediaQuery.of(context).size.height;
+    var _screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
@@ -17,7 +18,7 @@ class ToBuyMainScreen extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'Ubuntu',
               fontWeight: FontWeight.bold,
-              fontSize: screenHeight / 26),
+              fontSize: _screenHeight / 26),
         ),
         actions: [
           Row(
@@ -27,13 +28,13 @@ class ToBuyMainScreen extends StatelessWidget {
               InkWell(
                 child: Icon(
                   Icons.restore,
-                  size: screenHeight / 25,
+                  size: _screenHeight / 25,
                 ),
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => /*TobuyHistory()*/ null));
+                          builder: (context) => TobuyHistory()));
                 },
               ),
             ],
