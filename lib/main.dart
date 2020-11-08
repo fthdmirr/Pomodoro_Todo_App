@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_habifa_v2/blocs/pomodoro_bloc/pomodoro_bloc.dart';
 import 'package:flutter_habifa_v2/blocs/tobuy_bloc/tobuy_bloc.dart';
 import 'package:flutter_habifa_v2/repository/tobuy_repo.dart';
+import 'package:flutter_habifa_v2/ui/habit_tracker/habit_main.dart';
 import 'package:flutter_habifa_v2/ui/pomodoro/pomodoro_main.dart';
 import 'package:flutter_habifa_v2/ui/tobuy/tobuy_main.dart';
 import 'package:flutter_habifa_v2/utils/pomodoro_ticker.dart';
@@ -48,7 +49,7 @@ class _MyCurveBottomNavigationBarState
   // ignore: override_on_non_overriding_member
   var _currentIndex = 0;
   final List<Widget> _pages = [
-    //HabitMainScreen(),
+    HabitMain(),
     PomodoroMain(),
     ToBuyMainScreen(),
   ];
@@ -62,9 +63,9 @@ class _MyCurveBottomNavigationBarState
         backgroundColor: Theme.of(context).primaryColor,
         height: screenHeight / 17,
         items: [
+          TabItem(icon: Icons.all_inclusive),
           TabItem(icon: Icons.timer),
           TabItem(icon: Icons.done_all),
-          //TabItem(icon: Icons.all_inclusive, title: 'Todo'),
         ],
         initialActiveIndex: _currentIndex,
         onTap: _onTappedBar,

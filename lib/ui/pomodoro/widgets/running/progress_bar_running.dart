@@ -9,8 +9,6 @@ class ProgressBarRun extends StatefulWidget {
   _ProgressBarRunState createState() => _ProgressBarRunState();
 }
 
-const TWO_PI = 3.14 * 2;
-
 class _ProgressBarRunState extends State<ProgressBarRun> {
   @override
   Widget build(BuildContext context) {
@@ -70,4 +68,3 @@ class _ProgressBarRunState extends State<ProgressBarRun> {
     );
   }
 }
-

@@ -34,7 +34,7 @@ class PomodoroStarted extends StatelessWidget {
                     builder: (context) => PomodoroRunning(),
                   ));
               BlocProvider.of<PomodoroBloc>(context)
-                  .add(PomodoroStartedEvent(duration: 1500, tour: 1));
+                  .add(PomodoroStartedEvent(duration: 5, tour: 1));
             },
           ),
           SizedBox(

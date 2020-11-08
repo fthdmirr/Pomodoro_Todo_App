@@ -3,11 +3,13 @@ class TobuyListModel {
   String tobuyName;
   int isComplate = 0;
   String tobuyDate;
+  String tobuyDeleteDate;
 
   TobuyListModel({
     this.tobuyName,
     this.isComplate,
     this.tobuyDate,
+    this.tobuyDeleteDate,
   });
 
   TobuyListModel.withID(
@@ -15,6 +17,7 @@ class TobuyListModel {
     this.tobuyName,
     this.isComplate,
     this.tobuyDate,
+    this.tobuyDeleteDate,
   );
 
   Map<String, dynamic> toMap() {
@@ -24,6 +27,7 @@ class TobuyListModel {
     map['tobuyName'] = tobuyName;
     map['isComplate'] = isComplate;
     map['tobuyDate'] = tobuyDate;
+    map['tobuyDeleteDate'] = tobuyDeleteDate;
 
     return map;
   }
@@ -33,5 +37,6 @@ class TobuyListModel {
     this.tobuyName = map['tobuyName'];
     this.isComplate = map['isComplate'];
     this.tobuyDate = map['tobuyDate'];
+    this.tobuyDeleteDate = map['tobuyDeleteDate'];
   }
 }

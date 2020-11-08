@@ -61,7 +61,6 @@ class PomodoroActions extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
             _pomodoroAlertDialog(context, currentState);
-            
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
@@ -133,8 +132,7 @@ class PomodoroActions extends StatelessWidget {
     return [];
   }
 
-  void _pomodoroAlertDialog(
-      BuildContext context,currentState) {
+  void _pomodoroAlertDialog(BuildContext context, currentState) {
     showDialog(
         context: context,
         builder: (BuildContext context) {

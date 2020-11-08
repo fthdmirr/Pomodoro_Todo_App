@@ -10,7 +10,7 @@ part 'pomodoro_state.dart';
 
 class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   final Ticker _ticker;
-  static const int _duration = 5;
+  static const int _duration = 1500;
   static const int _tour = 0;
 
   StreamSubscription<int> _tickerSubscription;

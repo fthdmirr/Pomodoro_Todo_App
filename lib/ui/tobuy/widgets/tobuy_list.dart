@@ -64,67 +64,71 @@ class _TobuyListState extends State<TobuyList> {
     return ListView.builder(
       itemCount: state.tobuyList.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(16),
-          child: Container(
-            height: _screenHeight / 11.5,
-            child: Card(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.grey[200], width: 0.5),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                color: Colors.white,
-                child: ListTile(
-                  leading: InkWell(
-                    onTap: () {
-                      if (state.tobuyList[index].isComplate == 1) {
-                        state.tobuyList[index].isComplate = 0;
-                        BlocProvider.of<TobuyBloc>(context).add(
-                            TobuyUpdatedEvent(TobuyListModel.withID(
-                                tobuyList[index].tobuyID,
-                                tobuyList[index].tobuyName,
-                                tobuyList[index].isComplate,
-                                tobuyList[index].tobuyDate)));
-                      } else {
-                        state.tobuyList[index].isComplate = 1;
-                        BlocProvider.of<TobuyBloc>(context).add(
-                            TobuyUpdatedEvent(TobuyListModel.withID(
-                                tobuyList[index].tobuyID,
-                                tobuyList[index].tobuyName,
-                                tobuyList[index].isComplate,
-                                tobuyList[index].tobuyDate)));
-                      }
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: state.tobuyList[index].isComplate == 1
-                            ? Icon(
-                                Icons.done,
-                                size: 26.0,
-                                color: Colors.indigoAccent,
-                              )
-                            : Icon(
-                                Icons.check_box_outline_blank,
-                                size: _screenHeight / 25,
-                                color: Colors.tealAccent,
-                              ),
+        return tobuyList[index].isComplate != tobuyList[index].tobuyDeleteDate
+            ? Padding(
+                padding: const EdgeInsets.all(16),
+                child: Container(
+                  height: _screenHeight / 11.5,
+                  child: Card(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.grey[200], width: 0.5),
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                    ),
-                  ),
-                  title: Text(
-                    state.tobuyList[index].tobuyName,
-                    style: TextStyle(
-                        fontSize: _screenHeight / 43,
-                        fontFamily: 'RobotoMono',
-                        fontWeight: FontWeight.w500,
-                        decoration: state.tobuyList[index].isComplate == 1
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none),
-                  ),
-                )),
-          ),
-        );
+                      color: Colors.white,
+                      child: ListTile(
+                        leading: InkWell(
+                          onTap: () {
+                            if (state.tobuyList[index].isComplate == 1) {
+                              state.tobuyList[index].isComplate = 0;
+                              BlocProvider.of<TobuyBloc>(context).add(
+                                  TobuyUpdatedEvent(TobuyListModel.withID(
+                                      tobuyList[index].tobuyID,
+                                      tobuyList[index].tobuyName,
+                                      tobuyList[index].isComplate,
+                                      tobuyList[index].tobuyDate,
+                                      tobuyList[index].tobuyDeleteDate)));
+                            } else {
+                              state.tobuyList[index].isComplate = 1;
+                              BlocProvider.of<TobuyBloc>(context).add(
+                                  TobuyUpdatedEvent(TobuyListModel.withID(
+                                      tobuyList[index].tobuyID,
+                                      tobuyList[index].tobuyName,
+                                      tobuyList[index].isComplate,
+                                      tobuyList[index].tobuyDate,
+                                      tobuyList[index].tobuyDeleteDate)));
+                            }
+                          },
+                          child: Container(
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: state.tobuyList[index].isComplate == 1
+                                  ? Icon(
+                                      Icons.done,
+                                      size: 26.0,
+                                      color: Colors.indigoAccent,
+                                    )
+                                  : Icon(
+                                      Icons.check_box_outline_blank,
+                                      size: _screenHeight / 25,
+                                      color: Colors.tealAccent,
+                                    ),
+                            ),
+                          ),
+                        ),
+                        title: Text(
+                          state.tobuyList[index].tobuyName,
+                          style: TextStyle(
+                              fontSize: _screenHeight / 43,
+                              fontFamily: 'RobotoMono',
+                              fontWeight: FontWeight.w500,
+                              decoration: state.tobuyList[index].isComplate == 1
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none),
+                        ),
+                      )),
+                ),
+              )
+            : tobuyList.removeAt(index);
       },
     );
   }
