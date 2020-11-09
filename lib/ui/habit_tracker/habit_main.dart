@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_habifa_v2/blocs/habit_tracker_bloc/frequence_bloc/frequence_bloc.dart';
+import 'package:flutter_habifa_v2/ui/habit_tracker/widgets/add/add_items.dart';
 import 'package:flutter_habifa_v2/ui/habit_tracker/widgets/habit_list.dart';
 
 class HabitMain extends StatelessWidget {
@@ -21,7 +24,13 @@ class HabitMain extends StatelessWidget {
             color: Colors.black54,
             icon: Icon(Icons.add),
             onPressed: () {
-              //_showDialog();
+              BlocProvider.of<FrequenceBloc>(context)
+                  .add(FrequenceLoadedEvent());
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HabitAdd(),
+                  ));
             },
           )
         ],

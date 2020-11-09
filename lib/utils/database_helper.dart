@@ -120,10 +120,10 @@ class DBHelper {
     return result;
   }
 
-  Future<int> deleteHabit(Habit habit) async {
+  Future<int> deleteHabit(int habitID) async {
     var db = await _getDatabase();
     var result =
-        db.delete('habit', where: 'habitID=?', whereArgs: [habit.habitID]);
+        db.delete('habit', where: 'habitID=?', whereArgs: [habitID]);
     return result;
   }
   //
@@ -137,7 +137,7 @@ class DBHelper {
   }
 
   FutureOr<List<Frequence>> bringFrequenceMap() async {
-    var frequencetMapList = await bringHabit();
+    var frequencetMapList = await bringFrequence();
     var frequenceList = List<Frequence>();
     for (Map map in frequencetMapList) {
       frequenceList.add(Frequence.fromMap(map));

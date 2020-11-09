@@ -2,8 +2,11 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_habifa_v2/blocs/habit_tracker_bloc/frequence_bloc/frequence_bloc.dart';
+import 'package:flutter_habifa_v2/blocs/habit_tracker_bloc/habit_bloc/habit_bloc.dart';
 import 'package:flutter_habifa_v2/blocs/pomodoro_bloc/pomodoro_bloc.dart';
 import 'package:flutter_habifa_v2/blocs/tobuy_bloc/tobuy_bloc.dart';
+import 'package:flutter_habifa_v2/repository/frequence_repo.dart';
 import 'package:flutter_habifa_v2/repository/tobuy_repo.dart';
 import 'package:flutter_habifa_v2/ui/habit_tracker/habit_main.dart';
 import 'package:flutter_habifa_v2/ui/pomodoro/pomodoro_main.dart';
@@ -25,12 +28,19 @@ class MyApp extends StatelessWidget {
       lazy: false,
       create: (context) => PomodoroBloc(ticker: Ticker()),
       child: BlocProvider(
-        create: (context) => TobuyBloc(tobuyRepository: TobuyRepository()),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: "Habifa",
-          home: MyCurveBottomNavigationBar(),
-          theme: ThemeData(primaryColor: Color(0xffF95A5A)),
+        create: (context) => HabitBloc(),
+        child: BlocProvider(
+          create: (context) =>
+              FrequenceBloc(frequenceRepository: FrequenceRepository()),
+          child: BlocProvider(
+            create: (context) => TobuyBloc(tobuyRepository: TobuyRepository()),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: "Habifa",
+              home: MyCurveBottomNavigationBar(),
+              theme: ThemeData(primaryColor: Color(0xffF95A5A)),
+            ),
+          ),
         ),
       ),
     );
@@ -78,6 +88,8 @@ class _MyCurveBottomNavigationBarState
       _currentIndex = index;
       if (_currentIndex == 1) {
         BlocProvider.of<TobuyBloc>(context).add(TobuyLoadedEvent());
+      } else if (_currentIndex == 0) {
+        //BlocProvider.of<HabitBloc>(context).add();
       }
     });
   }

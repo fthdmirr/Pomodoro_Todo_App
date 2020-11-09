@@ -17,8 +17,6 @@ class _TobuyAddScreenState extends State<TobuyAddScreen> {
 
   TextEditingController _textFormController = TextEditingController();
 
-  
-
   String formattedDate = DateFormat('dd-MM-yyyy-kk:mm').format(DateTime.now());
 
   String formattedDeleteDate = DateFormat('dd-MM-yyyy-kk:mm')
@@ -67,7 +65,7 @@ class _TobuyAddScreenState extends State<TobuyAddScreen> {
                       _formKey.currentState.reset();
                     }
                   } else
-                    print('validate olmadı');
+                    return null;
                 },
                 width: screenHeight / 5,
                 fontSize: screenHeight / 30,
