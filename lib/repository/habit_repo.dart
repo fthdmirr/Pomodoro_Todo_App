@@ -8,5 +8,7 @@ class HabitRepository {
 
   Future insertHabit(Habit habit) async => await _habitRepo.addHabit(habit);
 
+  Future updateHabit(Habit habit) async=> await _habitRepo.updateHabit(habit);
+
   Future deleteHabit(int id) async => await _habitRepo.deleteHabit(id);
 }

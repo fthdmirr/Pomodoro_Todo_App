@@ -20,6 +20,7 @@ class PomodoroPausedEvent extends PomodoroEvent {}
 
 class PomodoroResumeEvent extends PomodoroEvent {}
 
+
 class PomodoroBreakEvent extends PomodoroEvent {
   final int duration;
   const PomodoroBreakEvent({@required this.duration});

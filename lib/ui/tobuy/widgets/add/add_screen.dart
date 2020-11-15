@@ -19,8 +19,6 @@ class _TobuyAddScreenState extends State<TobuyAddScreen> {
 
   String formattedDate = DateFormat('dd-MM-yyyy-kk:mm').format(DateTime.now());
 
-  String formattedDeleteDate = DateFormat('dd-MM-yyyy-kk:mm')
-      .format(DateTime.now().add(Duration(days: 1)));
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +47,13 @@ class _TobuyAddScreenState extends State<TobuyAddScreen> {
                 background: null,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    print(DateTime.now().toString());
                     _formKey.currentState.save();
                     final newList = TobuyListModel(
                         tobuyName:
                             toBeginningOfSentenceCase(_textFormController.text),
                         isComplate: 0,
                         tobuyDate: formattedDate,
-                        tobuyDeleteDate: formattedDeleteDate);
+                        );
 
                     BlocProvider.of<TobuyBloc>(context).add(
                       TobuyAddedEvent(newList),

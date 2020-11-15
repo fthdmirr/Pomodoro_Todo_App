@@ -35,7 +35,6 @@ class TobuyBloc extends Bloc<TobuyEvent, TobuyState> {
     try {
       final List<TobuyListModel> tobuyList =
           await this.tobuyRepository.getAllTobuys();
-      print("getirilen:" + tobuyList.toList().toString());
       yield TobuyLoadedState(tobuyList);
     } catch (e) {
       print("fetchError:" + e.toString());
@@ -47,7 +46,6 @@ class TobuyBloc extends Bloc<TobuyEvent, TobuyState> {
     try {
       if (state is TobuyLoadedState) {
         await this.tobuyRepository.insertTobuy(event.tobuyListModel);
-
         final List<TobuyListModel> tobuyList =
             await this.tobuyRepository.getAllTobuys();
         yield TobuyLoadedState(tobuyList);
@@ -64,7 +62,6 @@ class TobuyBloc extends Bloc<TobuyEvent, TobuyState> {
         await tobuyRepository.updateTobuy(event.tobuyListModel);
         final List<TobuyListModel> tobuyList =
             await this.tobuyRepository.getAllTobuys();
-
         yield TobuyLoadedState(tobuyList);
       }
     } catch (e) {

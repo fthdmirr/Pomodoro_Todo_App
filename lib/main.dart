@@ -7,11 +7,13 @@ import 'package:flutter_habifa_v2/blocs/habit_tracker_bloc/habit_bloc/habit_bloc
 import 'package:flutter_habifa_v2/blocs/pomodoro_bloc/pomodoro_bloc.dart';
 import 'package:flutter_habifa_v2/blocs/tobuy_bloc/tobuy_bloc.dart';
 import 'package:flutter_habifa_v2/repository/frequence_repo.dart';
+import 'package:flutter_habifa_v2/repository/habit_repo.dart';
 import 'package:flutter_habifa_v2/repository/tobuy_repo.dart';
 import 'package:flutter_habifa_v2/ui/habit_tracker/habit_main.dart';
 import 'package:flutter_habifa_v2/ui/pomodoro/pomodoro_main.dart';
 import 'package:flutter_habifa_v2/ui/tobuy/tobuy_main.dart';
 import 'package:flutter_habifa_v2/utils/pomodoro_ticker.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,11 +26,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('az');
     return BlocProvider(
       lazy: false,
       create: (context) => PomodoroBloc(ticker: Ticker()),
       child: BlocProvider(
-        create: (context) => HabitBloc(),
+        create: (context) => HabitBloc(habitRepository: HabitRepository()),
         child: BlocProvider(
           create: (context) =>
               FrequenceBloc(frequenceRepository: FrequenceRepository()),
@@ -57,7 +60,7 @@ class _MyCurveBottomNavigationBarState
     extends State<MyCurveBottomNavigationBar> {
   @override
   // ignore: override_on_non_overriding_member
-  var _currentIndex = 0;
+  var _currentIndex = 1;
   final List<Widget> _pages = [
     HabitMain(),
     PomodoroMain(),
@@ -86,10 +89,10 @@ class _MyCurveBottomNavigationBarState
   void _onTappedBar(int index) {
     setState(() {
       _currentIndex = index;
-      if (_currentIndex == 1) {
+      if (_currentIndex == 2) {
         BlocProvider.of<TobuyBloc>(context).add(TobuyLoadedEvent());
       } else if (_currentIndex == 0) {
-        //BlocProvider.of<HabitBloc>(context).add();
+        BlocProvider.of<HabitBloc>(context).add(HabitLoadedEvent());
       }
     });
   }

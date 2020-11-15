@@ -1,4 +1,3 @@
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_habifa_v2/blocs/pomodoro_bloc/pomodoro_bloc.dart';
@@ -6,8 +5,8 @@ import 'package:flutter_habifa_v2/utils/pomodoro_alert.dart';
 
 // ignore: must_be_immutable
 class PomodoroActions extends StatelessWidget {
-  CountDownController _controller = CountDownController();
-  PomodoroActions(this._controller);
+  AnimationController controller;
+  PomodoroActions(this.controller);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +15,15 @@ class PomodoroActions extends StatelessWidget {
       children: _mapStateToActions(
           pomodoroBloc: BlocProvider.of<PomodoroBloc>(context),
           context: context,
-          controller: _controller),
+          controller: controller),
     );
   }
 
-  List<Widget> _mapStateToActions(
-      {PomodoroBloc pomodoroBloc,
-      BuildContext context,
-      CountDownController controller}) {
+  List<Widget> _mapStateToActions({
+    PomodoroBloc pomodoroBloc,
+    BuildContext context,
+    AnimationController controller,
+  }) {
     final PomodoroState currentState = pomodoroBloc.state;
 
     if (currentState is PomodoroRunningState) {
@@ -32,7 +32,7 @@ class PomodoroActions extends StatelessWidget {
             child: Icon(Icons.pause),
             onPressed: () {
               pomodoroBloc.add(PomodoroPausedEvent());
-              controller.pause();
+              controller.stop();
             })
       ];
     }
@@ -41,6 +41,7 @@ class PomodoroActions extends StatelessWidget {
         FloatingActionButton.extended(
           onPressed: () {
             Navigator.pop(context);
+            controller.dispose();
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
@@ -48,7 +49,7 @@ class PomodoroActions extends StatelessWidget {
         FloatingActionButton.extended(
           onPressed: () {
             pomodoroBloc.add(PomodoroResumeEvent());
-            controller.resume();
+            controller.forward(from: controller.value);
           },
           icon: Icon(Icons.play_arrow),
           label: Text("Devam"),
@@ -61,6 +62,7 @@ class PomodoroActions extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
             _pomodoroAlertDialog(context, currentState);
+            controller.dispose();
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
@@ -68,7 +70,7 @@ class PomodoroActions extends StatelessWidget {
         FloatingActionButton.extended(
           onPressed: () {
             pomodoroBloc.add(PomodoroResumeEvent());
-            controller.resume();
+            controller.forward(from: controller.value);
           },
           icon: Icon(Icons.play_arrow),
           label: Text("Devam"),
@@ -82,14 +84,26 @@ class PomodoroActions extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
             _pomodoroAlertDialog(context, currentState);
+            controller.dispose();
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
         ),
         FloatingActionButton.extended(
           onPressed: () {
-            pomodoroBloc.add(PomodoroBreakEvent(duration: 300));
-            controller.restart();
+            if (currentState.tour < 3) {
+              pomodoroBloc.add(PomodoroBreakEvent(duration: 300));
+              controller.duration = Duration(seconds: 300);
+            } else if (2 < currentState.tour && currentState.tour < 5) {
+              pomodoroBloc.add(PomodoroBreakEvent(duration: 600));
+              controller.duration = Duration(seconds: 600);
+            } else {
+              pomodoroBloc.add(PomodoroBreakEvent(duration: 900));
+              controller.duration = Duration(seconds: 900);
+            }
+            controller.reset();
+            controller.forward(
+                from: controller.value);
           },
           icon: Icon(Icons.play_arrow),
           label: Text("Ara"),
@@ -101,7 +115,7 @@ class PomodoroActions extends StatelessWidget {
         FloatingActionButton(
           onPressed: () {
             pomodoroBloc.add(PomodoroPausedEvent());
-            controller.pause();
+            controller.stop();
           },
           child: Icon(Icons.pause),
         )
@@ -113,6 +127,7 @@ class PomodoroActions extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
             _pomodoroAlertDialog(context, currentState);
+            controller.dispose();
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
@@ -121,7 +136,7 @@ class PomodoroActions extends StatelessWidget {
           onPressed: () {
             pomodoroBloc.add(
                 PomodoroStartedEvent(duration: 1500, tour: currentState.tour));
-            controller.restart();
+            controller.reset();
           },
           icon: Icon(Icons.play_arrow),
           label: Text("Tur atla"),

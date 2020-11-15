@@ -15,7 +15,16 @@ class PomodoroStarted extends StatelessWidget {
       color: Color(0xffF95A5A),
       child: Column(
         children: [
-          SizedBox(height: _screenHeight / 8),
+          SizedBox(
+            height: _screenHeight / 20,
+          ),
+          /*TimerPicker(
+            pickedMinute: _pickedDuration,
+            isTime: _isTime,
+          ),*/
+          SizedBox(
+            height: _screenHeight / 20,
+          ),
           Hero(tag: 'progress', child: PomodoroProgressBar()),
           SizedBox(
             height: _screenHeight / 10,
@@ -34,7 +43,7 @@ class PomodoroStarted extends StatelessWidget {
                     builder: (context) => PomodoroRunning(),
                   ));
               BlocProvider.of<PomodoroBloc>(context)
-                  .add(PomodoroStartedEvent(duration: 5, tour: 1));
+                  .add(PomodoroStartedEvent(duration: 1500, tour: 1));
             },
           ),
           SizedBox(

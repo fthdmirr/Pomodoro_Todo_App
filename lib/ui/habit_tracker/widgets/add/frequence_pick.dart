@@ -1,18 +1,18 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_habifa_v2/blocs/habit_tracker_bloc/frequence_bloc/frequence_bloc.dart';
 import 'package:flutter_habifa_v2/model/frequence_models.dart';
 
+// ignore: must_be_immutable
 class FrequencePick extends StatefulWidget {
-  Frequence pickedFrequence;
+  List<Frequence> pickedFrequence;
+  int frequenceID = 1;
   FrequencePick({this.pickedFrequence});
   @override
   _FrequencePickState createState() => _FrequencePickState();
 }
 
 class _FrequencePickState extends State<FrequencePick> {
-  int frequenceID = 1;
-
   @override
   Widget build(BuildContext context) {
     final _screenHeight = MediaQuery.of(context).size.height;
@@ -34,7 +34,7 @@ class _FrequencePickState extends State<FrequencePick> {
                   onChanged: (Frequence value) {
                     setState(() {
                       widget.pickedFrequence = value;
-                      frequenceID = value.frequenceID;
+                      widget.frequenceID = value.frequenceID;
                     });
                   },
                 )),
@@ -58,3 +58,4 @@ class _FrequencePickState extends State<FrequencePick> {
     }).toList();
   }
 }
+*/

@@ -10,7 +10,7 @@ const TWO_PI = 3.14 * 2;
 class _PomodoroProgressBarState extends State<PomodoroProgressBar> {
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final _screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
       color: Color(0xffF95A5A),
@@ -20,8 +20,8 @@ class _PomodoroProgressBarState extends State<PomodoroProgressBar> {
           Center(
             child: Container(
               color: Color(0xffF95A5A),
-              height: screenHeight / 3,
-              width: screenHeight / 3,
+              height: _screenHeight / 3,
+              width: _screenHeight / 3,
               child: Stack(
                 children: [
                   ShaderMask(
@@ -37,16 +37,16 @@ class _PomodoroProgressBarState extends State<PomodoroProgressBar> {
                           ]).createShader(rect);
                     },
                     child: Container(
-                      height: screenHeight / 2.5,
-                      width: screenHeight / 3,
+                      height: _screenHeight / 2.5,
+                      width: _screenHeight / 3,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle, color: Colors.white),
                     ),
                   ),
                   Center(
                     child: Container(
-                      height: screenHeight / 3 - 50,
-                      width: screenHeight / 3 - 50,
+                      height: _screenHeight / 3 - 50,
+                      width: _screenHeight / 3 - 50,
                       decoration: BoxDecoration(
                         color: Color(0xffF95A5A),
                         shape: BoxShape.circle,
@@ -54,7 +54,7 @@ class _PomodoroProgressBarState extends State<PomodoroProgressBar> {
                       child: Center(
                         child: Text("25:00",
                             style: TextStyle(
-                                fontSize: screenHeight / 15,
+                                fontSize: _screenHeight / 15,
                                 color: Colors.white)),
                       ),
                     ),

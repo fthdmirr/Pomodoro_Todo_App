@@ -18,6 +18,14 @@ class HabitAddedEvent extends HabitEvent {
   List<Object> get props => [habitList];
 }
 
+class HabitUpdatedEvent extends HabitEvent {
+  final Habit habitList;
+
+  HabitUpdatedEvent({this.habitList});
+
+  
+}
+
 class HabitDeleteEvent extends HabitEvent {
   final Habit habitList;
 

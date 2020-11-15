@@ -105,4 +105,5 @@ class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       Vibration.vibrate(duration: 1000);
     }
   }
+
 }

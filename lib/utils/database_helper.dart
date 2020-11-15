@@ -101,7 +101,7 @@ class DBHelper {
   Future<List<Map<String, dynamic>>> bringHabit() async {
     var db = await _getDatabase();
     var result = await db.rawQuery(
-        "SELECT * FROM habit INNER JOIN FREQUENCE ON frequence.frequenceID=habit.habitFrequenceID");
+        "SELECT * FROM habit INNER JOIN frequence ON frequence.frequenceID=habit.habitFrequenceID order by habitFrequenceID Desc");
     return result;
   }
 
@@ -120,10 +120,16 @@ class DBHelper {
     return result;
   }
 
+  Future<int> updateHabit(Habit habit) async {
+    var db = await _getDatabase();
+    var result = await db.update('habit', habit.toMap(),
+        where: 'habitID=?', whereArgs: [habit.habitID]);
+    return result;
+  }
+
   Future<int> deleteHabit(int habitID) async {
     var db = await _getDatabase();
-    var result =
-        db.delete('habit', where: 'habitID=?', whereArgs: [habitID]);
+    var result = db.delete('habit', where: 'habitID=?', whereArgs: [habitID]);
     return result;
   }
   //

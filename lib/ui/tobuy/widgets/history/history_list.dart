@@ -42,7 +42,7 @@ class HistoryList extends StatelessWidget {
                                 tobuyHistoryList[index].tobuyName,
                                 tobuyHistoryList[index].isComplate,
                                 tobuyHistoryList[index].tobuyDate,
-                                tobuyHistoryList[index].tobuyDeleteDate)));
+                               )));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(16),
@@ -74,7 +74,7 @@ class HistoryList extends StatelessWidget {
                                   ),
                                 ),
                                 subtitle:
-                                    Text(state.tobuyList[index].tobuyDate),
+                                    Text("Bitirme: "+state.tobuyList[index].tobuyDate),
                               )),
                         ),
                       ),

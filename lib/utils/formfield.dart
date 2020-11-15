@@ -27,7 +27,6 @@ class MyTextFormField extends StatelessWidget {
             hintStyle:
                 TextStyle(fontFamily: 'Ubuntu', fontStyle: FontStyle.italic),
             contentPadding: EdgeInsets.all(15.0),
-            //filled: true,
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(

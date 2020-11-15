@@ -23,8 +23,12 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
     if (event is HabitAddedEvent) {
       yield* _mapHabitAddedToState(event);
     }
+
     if (event is HabitDeleteEvent) {
       yield* _mapHabitDeleteToState(event);
+    }
+    if (event is HabitUpdatedEvent) {
+      yield* _mapHabitUpdateToState(event);
     }
   }
 
@@ -33,6 +37,7 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
       try {
         final List<Habit> habitList = await habitRepository.getAllHabits();
         yield HabitLoadedState(habitList);
+        print("getirilen:" + habitList.toList().toString());
       } catch (e) {
         print("HabitBringError: " + e.toString());
         yield HabitErrorState();
@@ -61,6 +66,19 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
         yield HabitLoadedState(habitList);
       } catch (e) {
         print("HabitDeleteState" + e.toString());
+        yield HabitErrorState();
+      }
+    }
+  }
+
+  Stream<HabitState> _mapHabitUpdateToState(HabitUpdatedEvent event) async* {
+    if (state is HabitLoadedState) {
+      try {
+        await habitRepository.updateHabit(event.habitList);
+        final List<Habit> habitList = await habitRepository.getAllHabits();
+        yield HabitLoadedState(habitList);
+      } catch (e) {
+        print(e.toString());
         yield HabitErrorState();
       }
     }
