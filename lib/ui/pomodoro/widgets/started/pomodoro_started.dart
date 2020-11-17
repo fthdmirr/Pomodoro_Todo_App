@@ -4,7 +4,6 @@ import 'package:flutter_habifa_v2/blocs/pomodoro_bloc/pomodoro_bloc.dart';
 import 'package:flutter_habifa_v2/ui/pomodoro/widgets/running/pomodoro_running.dart';
 import 'package:flutter_habifa_v2/ui/pomodoro/widgets/started/progress_bar.dart';
 import 'package:nice_button/nice_button.dart';
-import 'package:screen/screen.dart';
 
 class PomodoroStarted extends StatelessWidget {
   @override
@@ -45,7 +44,6 @@ class PomodoroStarted extends StatelessWidget {
                   ));
               BlocProvider.of<PomodoroBloc>(context)
                   .add(PomodoroStartedEvent(duration: 1500, tour: 1));
-              Screen.keepOn(true);
             },
           ),
           SizedBox(

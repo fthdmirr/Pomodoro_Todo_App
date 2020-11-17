@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
-import 'package:flutter_habifa_v2/model/frequence_models.dart';
-import 'package:flutter_habifa_v2/model/habit_models.dart';
 import 'package:flutter_habifa_v2/model/tobuy_models.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -94,66 +92,6 @@ class DBHelper {
         await db.delete('tobuyList', where: 'tobuyID=?', whereArgs: [tobuyID]);
     return result;
   }
-  //
-  //
-  //
 
-  Future<List<Map<String, dynamic>>> bringHabit() async {
-    var db = await _getDatabase();
-    var result = await db.rawQuery(
-        "SELECT * FROM habit INNER JOIN frequence ON frequence.frequenceID=habit.habitFrequenceID order by habitFrequenceID Desc");
-    return result;
-  }
-
-  Future<List<Habit>> bringHabitMap() async {
-    var habitMapList = await bringHabit();
-    var habitList = List<Habit>();
-    for (Map map in habitMapList) {
-      habitList.add(Habit.fromMap(map));
-    }
-    return habitList;
-  }
-
-  Future<int> addHabit(Habit habit) async {
-    var db = await _getDatabase();
-    var result = await db.insert('habit', habit.toMap());
-    return result;
-  }
-
-  Future<int> updateHabit(Habit habit) async {
-    var db = await _getDatabase();
-    var result = await db.update('habit', habit.toMap(),
-        where: 'habitID=?', whereArgs: [habit.habitID]);
-    return result;
-  }
-
-  Future<int> deleteHabit(int habitID) async {
-    var db = await _getDatabase();
-    var result = db.delete('habit', where: 'habitID=?', whereArgs: [habitID]);
-    return result;
-  }
-  //
-  //
-  //
-
-  Future<List<Map<String, dynamic>>> bringFrequence() async {
-    var db = await _getDatabase();
-    var result = db.query("frequence", orderBy: 'frequenceID DESC');
-    return result;
-  }
-
-  FutureOr<List<Frequence>> bringFrequenceMap() async {
-    var frequencetMapList = await bringFrequence();
-    var frequenceList = List<Frequence>();
-    for (Map map in frequencetMapList) {
-      frequenceList.add(Frequence.fromMap(map));
-    }
-    return frequenceList;
-  }
-
-  Future<int> addFrequence(Frequence frequence) async {
-    var db = await _getDatabase();
-    var result = await db.insert('frequence', frequence.toMap());
-    return result;
-  }
 }
+
