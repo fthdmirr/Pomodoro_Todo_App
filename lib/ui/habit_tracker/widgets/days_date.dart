@@ -11,6 +11,7 @@ class DaysAndDate extends StatelessWidget {
     return Container(
         height: _screenHeight / 10,
         child: BlocBuilder<HabitBloc, HabitState>(
+          // ignore: missing_return
           builder: (context, state) {
             if (state is HabitLoadedState) {
               return ListView.builder(

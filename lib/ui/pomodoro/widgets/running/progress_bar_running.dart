@@ -15,14 +15,8 @@ class _ProgressBarRunState extends State<ProgressBarRun>
   @override
   void initState() {
     super.initState();
-
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 1500));
-
-    animationController.addListener(() {
-      print(animationController.value);
-    });
-
     animationController.forward(from: animationController.value);
   }
 

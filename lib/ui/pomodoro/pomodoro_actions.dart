@@ -33,6 +33,7 @@ class PomodoroActions extends StatelessWidget {
             onPressed: () {
               pomodoroBloc.add(PomodoroPausedEvent());
               controller.stop();
+             
             })
       ];
     }
@@ -42,12 +43,14 @@ class PomodoroActions extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
             controller.dispose();
+           
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
         ),
         FloatingActionButton.extended(
           onPressed: () {
+            
             pomodoroBloc.add(PomodoroResumeEvent());
             controller.forward(from: controller.value);
           },
@@ -63,12 +66,14 @@ class PomodoroActions extends StatelessWidget {
             Navigator.pop(context);
             _pomodoroAlertDialog(context, currentState);
             controller.dispose();
+           
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
         ),
         FloatingActionButton.extended(
           onPressed: () {
+        
             pomodoroBloc.add(PomodoroResumeEvent());
             controller.forward(from: controller.value);
           },
@@ -85,25 +90,33 @@ class PomodoroActions extends StatelessWidget {
             Navigator.pop(context);
             _pomodoroAlertDialog(context, currentState);
             controller.dispose();
+           
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
         ),
         FloatingActionButton.extended(
           onPressed: () {
+           
             if (currentState.tour < 3) {
               pomodoroBloc.add(PomodoroBreakEvent(duration: 300));
+
               controller.duration = Duration(seconds: 300);
+              controller.reset();
+              controller.forward(from: controller.value);
             } else if (2 < currentState.tour && currentState.tour < 5) {
               pomodoroBloc.add(PomodoroBreakEvent(duration: 600));
               controller.duration = Duration(seconds: 600);
+              controller.reset();
+              controller.forward(from: controller.value);
             } else {
               pomodoroBloc.add(PomodoroBreakEvent(duration: 900));
               controller.duration = Duration(seconds: 900);
+              controller.reset();
+              controller.forward(from: controller.value);
             }
             controller.reset();
-            controller.forward(
-                from: controller.value);
+            controller.forward(from: controller.value);
           },
           icon: Icon(Icons.play_arrow),
           label: Text("Ara"),
@@ -116,6 +129,7 @@ class PomodoroActions extends StatelessWidget {
           onPressed: () {
             pomodoroBloc.add(PomodoroPausedEvent());
             controller.stop();
+         
           },
           child: Icon(Icons.pause),
         )
@@ -128,6 +142,7 @@ class PomodoroActions extends StatelessWidget {
             Navigator.pop(context);
             _pomodoroAlertDialog(context, currentState);
             controller.dispose();
+           
           },
           icon: Icon(Icons.arrow_back_ios),
           label: Text("Bitir"),
@@ -136,7 +151,9 @@ class PomodoroActions extends StatelessWidget {
           onPressed: () {
             pomodoroBloc.add(
                 PomodoroStartedEvent(duration: 1500, tour: currentState.tour));
+                 controller.duration = Duration(seconds: 1500);
             controller.reset();
+            controller.forward(from: controller.value);
           },
           icon: Icon(Icons.play_arrow),
           label: Text("Tur atla"),
@@ -161,6 +178,7 @@ class PomodoroActions extends StatelessWidget {
                 child: Text("Tamam"),
                 onPressed: () {
                   Navigator.pop(context);
+         
                 },
               ),
               FlatButton(

@@ -14,9 +14,18 @@ import 'package:flutter_habifa_v2/ui/pomodoro/pomodoro_main.dart';
 import 'package:flutter_habifa_v2/ui/tobuy/tobuy_main.dart';
 import 'package:flutter_habifa_v2/utils/pomodoro_ticker.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:workmanager/workmanager.dart';
+
+void callbackDispatcher() {
+  Workmanager.executeTask((taskName, inputData) => Future.value());
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  Workmanager.initialize(callbackDispatcher, isInDebugMode: false);
+  Workmanager.registerOneOffTask('1', 'pomodoro');
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(MyApp());
@@ -28,7 +37,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     initializeDateFormatting('az');
     return BlocProvider(
-      lazy: false,
       create: (context) => PomodoroBloc(ticker: Ticker()),
       child: BlocProvider(
         create: (context) => HabitBloc(habitRepository: HabitRepository()),
@@ -93,7 +101,7 @@ class _MyCurveBottomNavigationBarState
         BlocProvider.of<TobuyBloc>(context).add(TobuyLoadedEvent());
       } else if (_currentIndex == 0) {
         BlocProvider.of<HabitBloc>(context).add(HabitLoadedEvent());
-      }
+      } else {}
     });
   }
 }
